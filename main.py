@@ -23,7 +23,6 @@ print(aggs)
 
 
 
-
 # ticker = "AAPL"
 
 # # List Aggregates (Bars)
