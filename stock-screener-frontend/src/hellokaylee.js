@@ -2,12 +2,23 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function HelloWorld() {
-  const [message, setMessage] = useState('');
+  const [aggs, setAggs] = useState();
+  const [macd, setMacd] = useState();
 
   useEffect(() => {
     axios.get('http://localhost:8000/api/get-aggs/')
       .then(response => {
-        setMessage(response.data.message);
+        setAggs(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/get-macd/')
+      .then(response => {
+        setMacd(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -17,7 +28,8 @@ function HelloWorld() {
   return (
     <div>
       <h1>Hello, Beau!, Love Kaylee</h1>
-      <p>{message}</p>
+      <p>{aggs}</p>
+      <p>{macd}</p>
     </div>
   );
 }
