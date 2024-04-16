@@ -6,6 +6,8 @@ from polygon.rest import models
 import requests
 from django.http import HttpResponse
 from django.http import JsonResponse
+import json
+
 
 
 
@@ -36,10 +38,19 @@ def get_onc(request):
     query_upper = query.upper()
     response = requests.get(f'https://api.polygon.io/v1/open-close/{query_upper}/2023-01-09?adjusted=true&apiKey=Aiz3ZL5A4jU2NbBt2G0bmyD35id5PWZ8')
 
+    
+
+    # print(parsed_reponse)
+
+    # content_type = response.headers.get('content-type')
+
+    # print(content_type)
+
     # print(response)
 
     if response.status_code == 200:
-        return Response(response)
+        parsed = json.loads(response.content)
+        return Response(parsed)
     else:
         error_message = f"Error: {response.status_code}"
         return Response({'error': error_message}, status=500)

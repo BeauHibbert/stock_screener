@@ -14,7 +14,7 @@ function HelloWorld() {
     })
       .then(response => {
         console.log("res.data", response.data)
-        setOnc(response.data);
+        setOnc(response.data.open);
       })
       .catch(error => {
         console.log(error);
