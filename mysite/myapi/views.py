@@ -33,7 +33,7 @@ def hello_world(request):
 
 
 @api_view(['GET'])
-def get_onc(request):
+def get_open(request):
     query = request.query_params['symbol']
     query_upper = query.upper()
     response = requests.get(f'https://api.polygon.io/v1/open-close/{query_upper}/2023-01-09?adjusted=true&apiKey=Aiz3ZL5A4jU2NbBt2G0bmyD35id5PWZ8')
@@ -47,6 +47,21 @@ def get_onc(request):
     # print(content_type)
 
     # print(response)
+
+    if response.status_code == 200:
+        parsed = json.loads(response.content)
+        return Response(parsed)
+    else:
+        error_message = f"Error: {response.status_code}"
+        return Response({'error': error_message}, status=500)
+    
+
+
+@api_view(['GET'])
+def get_close(request):
+    query = request.query_params['symbol']
+    query_upper = query.upper()
+    response = requests.get(f'https://api.polygon.io/v1/open-close/{query_upper}/2023-01-09?adjusted=true&apiKey=Aiz3ZL5A4jU2NbBt2G0bmyD35id5PWZ8')
 
     if response.status_code == 200:
         parsed = json.loads(response.content)
