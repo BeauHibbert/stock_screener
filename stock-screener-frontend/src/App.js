@@ -1,6 +1,4 @@
-import logo from './logo.svg';
 import './App.css';
-// import aggs from 
 
 import React from 'react';
 import HelloWorld from './hellokaylee';

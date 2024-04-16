@@ -2,34 +2,31 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function HelloWorld() {
-  const [aggs, setAggs] = useState();
-  const [macd, setMacd] = useState();
+  const [onc, setOnc] = useState();
+
+
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/get-aggs/')
+    axios.get('http://localhost:8000/api/get-onc/', {
+      params: {
+        symbol: 'aapl'
+      }
+    })
       .then(response => {
-        setAggs(response.data);
+        console.log("res.data", response.data)
+        setOnc(response.data);
       })
       .catch(error => {
         console.log(error);
       });
   }, []);
 
-  useEffect(() => {
-    axios.get('http://localhost:8000/api/get-macd/')
-      .then(response => {
-        setMacd(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+
 
   return (
     <div>
-      <h1>Hello, Beau!, Love Kaylee</h1>
-      <p>{aggs}</p>
-      <p>{macd}</p>
+      <h1>Open and Close info</h1>
+      <p>{onc}</p>
     </div>
   );
 }
